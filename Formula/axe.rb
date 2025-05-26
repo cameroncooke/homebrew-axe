@@ -8,9 +8,9 @@ class Axe < Formula
   # so `brew audit` doesn't complain too much if someone tries to install before a real release.
   # Or, you can comment them out, but Homebrew might then complain the formula is incomplete.
   # Let's use a dummy URL for now.
-  url "https://github.com/cameroncooke/AXe/releases/download/v0.0.0/AXe-macOS-Universal-v0.0.0.tar.gz"
-  version "0.0.0" # Placeholder version
-  sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" # SHA256 of an empty file
+  url "https://github.com/cameroncooke/AXe/releases/download/v1.0.3/AXe-macOS-Universal-v1.0.3.tar.gz"
+  version "1.0.3" # Placeholder version
+  sha256 "6c3abe9ac43b33dec0d59dc9ced3f187fe3a32bab32e04189d5a32de151265a1" # SHA256 of an empty file
   # --- END PLACEHOLDERS ---
 
   # Specify macOS version dependency, matching your Package.swift
