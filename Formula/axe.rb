@@ -1,42 +1,38 @@
 # Formula/axe.rb
 class Axe < Formula
   desc "CLI application for macOS to interact with iOS Simulators and Devices via IDB"
-  homepage "https://github.com/cameroncooke/AXe" # Your main AXe project
+  homepage "https://github.com/cameroncooke/AXe"
 
-  # --- PLACEHOLDERS - These will be updated by your release script ---
-  # It's good practice to point to a non-existent file or an empty tarball for the initial state
-  # so `brew audit` doesn't complain too much if someone tries to install before a real release.
-  # Or, you can comment them out, but Homebrew might then complain the formula is incomplete.
-  # Let's use a dummy URL for now.
-  url "https://github.com/cameroncooke/AXe/releases/download/v1.0.3/AXe-macOS-Universal-v1.0.3.tar.gz"
-  version "1.0.3" # Placeholder version
-  sha256 "6c3abe9ac43b33dec0d59dc9ced3f187fe3a32bab32e04189d5a32de151265a1" # SHA256 of an empty file
-  # --- END PLACEHOLDERS ---
+  # This version will be updated by CI
+  version "0.0.0" # Placeholder, CI will replace this
 
-  # Specify macOS version dependency, matching your Package.swift
-  depends_on macos: :sonoma # macOS 14 (Sonoma)
+  on_macos do
+    if Hardware::CPU.arm?
+      # ARM64_URL_PLACEHOLDER
+      url "https://example.com/axe-arm64.tar.gz" # Placeholder, CI will replace this
+      # ARM64_SHA256_PLACEHOLDER
+      sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" # SHA256 of empty file
+    else
+      # X86_64_URL_PLACEHOLDER
+      url "https://example.com/axe-x86_64.tar.gz" # Placeholder, CI will replace this
+      # X86_64_SHA256_PLACEHOLDER
+      sha256 "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" # SHA256 of empty file
+    end
+  end
+
+  depends_on macos: :sonoma 
 
   def install
-    # This install block assumes your release archive (e.g., AXe-macOS-Universal-vX.Y.Z.tar.gz)
-    # will be created such that its contents (the 'axe' executable and the .framework bundles)
-    # are at the root of the extracted archive.
-    # This is achieved by using `tar -czvf archive.tar.gz -C Artifacts .` in your release.sh script.
-
-    # Homebrew will extract the archive into a temporary directory, and this 'install' block
-    # will be executed with its current directory being that temporary location.
-
-    libexec.install Dir["*"] # Copies 'axe' and all '*.framework' directories into libexec
-
-    # Create a symlink from bin (which is in the user's PATH) to the executable in libexec.
+    # The tarball contains 'axe' and a 'Frameworks' directory at its root.
+    # libexec.install Dir["*"] would copy 'Frameworks' folder into libexec.
+    # 'axe' executable would be at libexec/axe
+    # Frameworks would be at libexec/Frameworks/*
+    # With rpath @executable_path/Frameworks, this setup is correct.
+    libexec.install Dir["*"] 
     bin.install_symlink libexec/"axe"
   end
 
   test do
-    # A simple test to ensure the executable runs and produces expected output.
-    # Using `shell_output` captures the output.
-    # Check for a substring that's definitely in your --help output.
-    assert_match "USAGE: axe", shell_output("#{bin}/axe --help", 2) # Expect exit code 2 for --help on ArgumentParser
-    # If --help exits with 0, use:
-    # assert_match "USAGE: axe", shell_output("#{bin}/axe --help")
+    assert_match "USAGE: axe", shell_output("#{bin}/axe --help", 2)
   end
 end
