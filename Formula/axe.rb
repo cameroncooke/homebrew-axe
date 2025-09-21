@@ -3,9 +3,9 @@ class Axe < Formula
   desc "CLI application for macOS to interact with iOS Simulators and Devices via IDB"
   homepage "https://github.com/cameroncooke/AXe"
 
-  version "1.0.0"
-  url "https://github.com/cameroncooke/AXe/releases/download/v1.0.0/AXe-macOS-v1.0.0.tar.gz"
-  sha256 "5d32037aaef3bd8c57b454cf43b40b470c209d5dd2a39ab78eeb7b9c438817f9"
+  version "1.1.0"
+  url "https://github.com/cameroncooke/AXe/releases/download/v1.1.0/AXe-macOS-v1.1.0.tar.gz"
+  sha256 "790e9baaa59efd725b7a9691dbe24139f3cb779da8c6375d03b33b092ed9ddf5"
 
   depends_on macos: :sonoma 
 
