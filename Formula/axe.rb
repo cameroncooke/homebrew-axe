@@ -10,13 +10,20 @@ class Axe < Formula
   depends_on macos: :sonoma 
 
   def install
-    # The tarball contains 'axe' and a 'Frameworks' directory at its root.
-    # libexec.install Dir["*"] would copy 'Frameworks' folder into libexec.
-    # 'axe' executable would be at libexec/axe
-    # Frameworks would be at libexec/Frameworks/*
-    # With rpath @executable_path/Frameworks, this setup is correct.
     libexec.install Dir["*"] 
     bin.install_symlink libexec/"axe"
+  end
+
+  def post_install
+    # Ad-hoc sign the installed binary and framework binaries to ensure executability after Homebrew relocation.
+    system("codesign", "--force", "--sign", "-", "--timestamp=none", "#{libexec}/axe")
+
+    Dir.glob("#{libexec}/Frameworks/*.framework").each do |framework|
+      name = File.basename(framework, ".framework")
+      binary = Dir["#{framework}/Versions/*/#{name}"].first
+      next unless binary
+      system("codesign", "--force", "--sign", "-", "--timestamp=none", binary)
+    end
   end
 
   test do
