@@ -1,8 +1,8 @@
 class Axe < Formula
   desc "CLI tool for interacting with iOS Simulators via accessibility and HID APIs"
   homepage "https://github.com/cameroncooke/AXe"
-  url "https://github.com/cameroncooke/AXe/releases/download/v2.0.2/AXe-macOS-homebrew-v2.0.2.tar.gz"
-  sha256 "ba11a0e584156b7e3cdfcdfdbd66a0ea2c6029a255033369cad7ab3f49531731"
+  url "https://github.com/cameroncooke/AXe/releases/download/v2.0.3/AXe-macOS-homebrew-v2.0.3.tar.gz"
+  sha256 "092a895ea29b658af27415f73253304c737eadcc64ef5b1188ffaea94323d58c"
   license "MIT"
 
   depends_on macos: :sonoma
